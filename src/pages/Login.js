@@ -1,11 +1,14 @@
 // src/pages/Login.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Added useNavigate
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 
 const Login = () => {
-  const { API_URL } = useAuth();
+  // Pull loginSuccess from context
+  const { API_URL, loginSuccess } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
+  
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,7 +21,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${API_URL || 'http://localhost:8000'}/api/auth/login`, {
+      const response = await fetch(`${API_URL || 'http://localhost:5000'}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -28,9 +31,11 @@ const Login = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Login failed');
 
-      // Hard reload to refresh AuthContext state
-      window.location.href = '/home'; 
-    } catch (err) {
+      // CRITICAL FIX: Update state directly and navigate
+      loginSuccess(data.user); // Instantly update the user state in context
+      navigate('/home');      // Use router to navigate without full page reload
+      
+    } catch(err) {
       setError(err.message);
     } finally {
       setLoading(false);

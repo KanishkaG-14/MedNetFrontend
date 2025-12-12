@@ -51,8 +51,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // NEW: Function to instantly update state on successful login
+  const loginSuccess = (userData) => { 
+    setUser(userData);
+    setIsLoading(false);
+  };
+  
   return (
-    <AuthContext.Provider value={{ user, isLoading, logout, API_URL, MODEL_API_URL }}>
+    <AuthContext.Provider value={{ user, isLoading, logout, loginSuccess, API_URL, MODEL_API_URL }}>
       {children}
     </AuthContext.Provider>
   );
