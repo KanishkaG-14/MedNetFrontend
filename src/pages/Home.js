@@ -4,7 +4,7 @@ import {
   Home as HomeIcon, Upload, BarChart3, Bot, FileText, BookOpen,
   User, LogOut, ChevronDown, Activity, Database, Target, 
   TrendingUp, Send, Eye, Github, Upload as UploadIcon,
-  ChevronRight, Zap, X, Plus
+  ChevronRight, Zap, X, Plus, Menu
 } from 'lucide-react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
@@ -15,6 +15,7 @@ import ThemeToggle from '../components/ThemeToggle';
 import { useAuth } from '../context/AuthContext'; 
 
 const Home = ({ user, onLogout }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -995,9 +996,18 @@ const Home = ({ user, onLogout }) => {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <motion.nav initial={{ y: -100 }} animate={{ y: 0 }} className="fixed top-0 w-full z-50 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 h-16 flex items-center px-4 sm:px-8 justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-teal-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">M</div>
-          <span className="font-bold text-xl text-slate-900 dark:text-white">MED-Net</span>
-        </div>
+  {/* Toggle Button */}
+  <button 
+    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors mr-2"
+  >
+    <Menu size={24} className="text-slate-700 dark:text-slate-200" />
+  </button>
+  
+  {/* Logo */}
+  <div className="w-10 h-10 bg-gradient-to-br from-teal-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">M</div>
+  <span className="font-bold text-xl text-slate-900 dark:text-white">MED-Net</span>
+</div>
 
           <div className="flex items-center gap-4">
           
@@ -1025,8 +1035,10 @@ const Home = ({ user, onLogout }) => {
       </motion.nav>
 
       <div className="flex pt-16">
-        <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-lg flex flex-col z-40">
-          <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+      <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 shadow-lg flex flex-col z-40 transition-transform duration-300 ease-in-out ${
+  isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+}`}>
+  <div className="p-4 border-b border-slate-200 dark:border-slate-700">
             <h2 className="font-semibold text-slate-900 dark:text-white">Navigation</h2>
           </div>
           <nav className="p-4 space-y-2 flex-1">
@@ -1057,8 +1069,10 @@ const Home = ({ user, onLogout }) => {
           </div>
         </aside>
         
-        <main className="flex-1 ml-72 p-8 overflow-y-auto min-h-[calc(100vh-4rem)]">
-          <AnimatePresence mode="wait">
+        <main className={`flex-1 p-8 overflow-y-auto min-h-[calc(100vh-4rem)] transition-all duration-300 ease-in-out ${
+  isSidebarOpen ? 'ml-72' : 'ml-0'
+}`}>
+  <AnimatePresence mode="wait">
             {renderSection()}
           </AnimatePresence>
         </main>

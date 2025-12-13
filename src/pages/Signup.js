@@ -319,7 +319,7 @@ const Signup = () => {
   return (
     <div className="min-h-screen pt-20 flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-4">
       <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-200 dark:border-slate-700">
-        <h2 className="text-3xl font-bold text-center mb-6 text-slate-900 dark:text-white">Join DTAAD</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-slate-900 dark:text-white">Join MED-Net</h2>
         
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm text-center">
