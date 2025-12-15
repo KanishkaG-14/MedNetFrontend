@@ -954,7 +954,7 @@ const Home = ({ user, onLogout }) => {
              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                {/* Research Paper Card */}
                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-center hover:shadow-xl transition-shadow group cursor-pointer"
-                    onClick={() => window.open('/path-to-your-paper.pdf', '_blank')}>
+                    onClick={() => window.open(process.env.REACT_APP_RESEARCH_PAPER_URL, '_blank')}>
                  <div className="w-16 h-16 mx-auto bg-teal-100 dark:bg-teal-900/30 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                    <BookOpen className="w-8 h-8 text-teal-600 dark:text-teal-400"/>
                  </div>
@@ -971,7 +971,7 @@ const Home = ({ user, onLogout }) => {
 
                {/* Project Report Card */}
                <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 text-center hover:shadow-xl transition-shadow group cursor-pointer"
-                    onClick={() => window.open('/path-to-your-report.pdf', '_blank')}>
+                    onClick={() => window.open(process.env.REACT_APP_PROJECT_REPORT_URL, '_blank')}>
                  <div className="w-16 h-16 mx-auto bg-teal-100 dark:bg-teal-900/30 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                    <FileText className="w-8 h-8 text-teal-600 dark:text-teal-400"/>
                  </div>
